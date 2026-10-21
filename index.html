@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JS Plastering &amp; Rendering | Hull</title>
-<meta name="description" content="JS Plastering & Rendering – professional plastering, rendering, skimming, dry lining and coving across Hull and East Yorkshire.">
+<meta name="description" content="JS Plastering & Rendering – a fully insured, family-run plastering business with 15 years' experience. Plastering, rendering, skimming, dry lining and coving across Hull and East Yorkshire.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -50,8 +50,9 @@
   /* Hero */
   .hero {
     background:
-      linear-gradient(135deg, rgba(29,31,34,0.88), rgba(29,31,34,0.7)),
-      repeating-linear-gradient(45deg, #3a3c40 0 2px, #2c2e31 2px 14px);
+      linear-gradient(135deg, rgba(29,31,34,0.9), rgba(29,31,34,0.62)),
+      url("https://images.pexels.com/photos/5493658/pexels-photo-5493658.jpeg?auto=compress&cs=tinysrgb&w=1600") center / cover no-repeat,
+      #2c2e31;
     color: var(--white);
     padding: 110px 0 120px;
   }
@@ -70,6 +71,25 @@
   .btn:hover { background: var(--accent-dark); }
   .btn-ghost { background: transparent; border: 2px solid rgba(255,255,255,0.5); margin-left: 10px; }
   .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+  /* Trust badges */
+  .badges { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; list-style: none; }
+  .badges li {
+    display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 10px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); font-weight: 600;
+  }
+  .badges b { font-family: "Archivo", sans-serif; font-size: 1.4rem; color: #f0a374; line-height: 1; }
+
+  /* Gallery */
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .gallery figure { position: relative; border-radius: var(--radius); overflow: hidden; background: var(--plaster); aspect-ratio: 4 / 3; }
+  .gallery figure.wide { grid-column: span 2; aspect-ratio: auto; }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery figcaption {
+    position: absolute; left: 10px; bottom: 10px; background: rgba(29,31,34,0.78); color: var(--white);
+    font-size: 0.85rem; font-weight: 600; padding: 5px 12px; border-radius: 50px;
+  }
+  .credit { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 16px; }
 
   /* Sections */
   section { padding: 90px 0; }
@@ -148,6 +168,8 @@
     .why-grid { grid-template-columns: 1fr; gap: 34px; }
     section { padding: 64px 0; }
     .area-box { padding: 40px 22px; }
+    .gallery { grid-template-columns: 1fr 1fr; }
+    .gallery figure.wide { grid-column: span 2; aspect-ratio: 16 / 9; }
   }
 </style>
 </head>
@@ -159,6 +181,7 @@
     <button class="menu-btn" aria-label="Open menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#why">Why us</a></li>
       <li><a href="#area">Area</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -171,9 +194,14 @@
     <div class="wrap">
       <span class="tag">Hull &amp; East Yorkshire</span>
       <h1>Smooth walls. Solid render. Done right.</h1>
-      <p>JS Plastering &amp; Rendering is a local plasterer covering Hull and the surrounding area, from a single room skim to full house renders.</p>
+      <p>JS Plastering &amp; Rendering is a family-run plastering business covering Hull and the surrounding area, from a single room skim to full house renders.</p>
       <a href="#services" class="btn">Our services</a>
       <a href="#contact" class="btn btn-ghost">Get a quote</a>
+      <ul class="badges">
+        <li><b>15</b> years' experience</li>
+        <li>✓ Fully insured</li>
+        <li>✓ Family run business</li>
+      </ul>
     </div>
   </div>
 
@@ -213,14 +241,35 @@
     </div>
   </section>
 
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Plastering &amp; skimming</h2>
+        <p>Smooth, flat walls and ceilings, ready to decorate.</p>
+      </div>
+      <div class="gallery">
+        <figure class="wide"><img src="https://images.pexels.com/photos/10383588/pexels-photo-10383588.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Plasterer applying plaster to a wall" loading="lazy"><figcaption>Plastering</figcaption></figure>
+        <figure><img src="https://images.pexels.com/photos/38561969/pexels-photo-38561969.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Trowel finishing a smooth plastered wall" loading="lazy"><figcaption>Skim finish</figcaption></figure>
+        <figure><img src="https://images.pexels.com/photos/5691603/pexels-photo-5691603.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Hands holding plastering trowels" loading="lazy"><figcaption>Skimming</figcaption></figure>
+        <figure><img src="https://images.pexels.com/photos/38561968/pexels-photo-38561968.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Trowel loaded with plaster" loading="lazy"><figcaption>Patch repairs</figcaption></figure>
+        <figure><img src="https://images.pexels.com/photos/4953232/pexels-photo-4953232.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Skim coating an outside wall" loading="lazy"><figcaption>Rendering</figcaption></figure>
+      </div>
+      <p class="credit">Example photos from Pexels.</p>
+    </div>
+  </section>
+
   <section id="why" class="why">
     <div class="wrap why-grid">
       <div>
         <h2>Why choose JS Plastering?</h2>
-        <p>We take pride in every job, big or small. You get a clean, tidy tradesman who turns up when he says he will and leaves you with a finish you'll be happy with.</p>
+        <p>We're a family-run business with 15 years' experience in the trade, and we take pride in every job, big or small. You get a clean, tidy tradesman who turns up when he says he will and leaves you with a finish you'll be happy with.</p>
+        <p>We're fully insured, so you're covered from start to finish.</p>
         <p>Every job starts with a free, no-obligation quote.</p>
       </div>
       <ul class="checks">
+        <li>15 years' experience</li>
+        <li>Fully insured</li>
+        <li>Family run business</li>
         <li>Free, honest quotes</li>
         <li>Clean and tidy work</li>
         <li>Reliable and on time</li>
