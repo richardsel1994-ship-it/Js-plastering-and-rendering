@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Plastering &amp; Rendering | Hull</title>
+<meta name="description" content="JS Plastering & Rendering – professional plastering, rendering, skimming, dry lining and coving across Hull and East Yorkshire.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1d1f22;
+    --muted: #5d6066;
+    --paper: #f7f4ef;
+    --plaster: #ebe4d8;
+    --accent: #c2622d;
+    --accent-dark: #9c4c20;
+    --white: #ffffff;
+    --line: #ddd5c7;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+  }
+  h1, h2, h3 { font-family: "Archivo", sans-serif; line-height: 1.15; }
+  a { color: inherit; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(247, 244, 239, 0.95);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo { font-family: "Archivo", sans-serif; font-weight: 800; font-size: 1.3rem; text-decoration: none; letter-spacing: -0.5px; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 26px; list-style: none; }
+  .nav-links a { text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+  .nav-links a:hover { color: var(--accent); }
+  .menu-btn { display: none; background: none; border: 0; font-size: 1.6rem; cursor: pointer; color: var(--ink); }
+
+  /* Hero */
+  .hero {
+    background:
+      linear-gradient(135deg, rgba(29,31,34,0.88), rgba(29,31,34,0.7)),
+      repeating-linear-gradient(45deg, #3a3c40 0 2px, #2c2e31 2px 14px);
+    color: var(--white);
+    padding: 110px 0 120px;
+  }
+  .tag {
+    display: inline-block; background: var(--accent); color: var(--white);
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 50px; margin-bottom: 22px;
+  }
+  .hero h1 { font-size: clamp(2.3rem, 6vw, 4rem); max-width: 760px; margin-bottom: 20px; }
+  .hero p { font-size: 1.15rem; max-width: 600px; color: #d8d6d2; margin-bottom: 34px; }
+  .btn {
+    display: inline-block; background: var(--accent); color: var(--white);
+    padding: 15px 30px; border-radius: 50px; font-weight: 600; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: var(--accent-dark); }
+  .btn-ghost { background: transparent; border: 2px solid rgba(255,255,255,0.5); margin-left: 10px; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+  /* Sections */
+  section { padding: 90px 0; }
+  .section-head { text-align: center; max-width: 620px; margin: 0 auto 50px; }
+  .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 12px; }
+  .section-head p { color: var(--muted); }
+
+  /* Services */
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+  .card {
+    background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 30px 26px; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.07); }
+  .icon {
+    width: 50px; height: 50px; border-radius: 12px; background: var(--plaster);
+    display: grid; place-items: center; font-size: 1.5rem; margin-bottom: 18px;
+  }
+  .card h3 { font-size: 1.25rem; margin-bottom: 8px; }
+  .card p { color: var(--muted); font-size: 0.97rem; }
+
+  /* Why us */
+  .why { background: var(--plaster); }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .why h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 18px; }
+  .why p { color: var(--muted); margin-bottom: 16px; }
+  .checks { list-style: none; display: grid; gap: 14px; }
+  .checks li {
+    background: var(--white); border-radius: 10px; padding: 16px 18px 16px 52px;
+    position: relative; font-weight: 500;
+  }
+  .checks li::before {
+    content: "✓"; position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+    width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--white);
+    display: grid; place-items: center; font-size: 0.75rem; font-weight: 700;
+  }
+
+  /* Area */
+  .area-box {
+    background: var(--ink); color: var(--white); border-radius: 20px;
+    padding: 50px 40px; text-align: center;
+  }
+  .area-box h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); margin-bottom: 14px; }
+  .area-box p { color: #c9c7c3; max-width: 560px; margin: 0 auto 26px; }
+  .places { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .places span {
+    border: 1px solid rgba(255,255,255,0.25); border-radius: 50px;
+    padding: 7px 16px; font-size: 0.9rem;
+  }
+
+  /* Contact */
+  .contact { text-align: center; }
+  .contact-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 20px;
+    max-width: 640px; margin: 0 auto; padding: 50px 30px;
+  }
+  .contact-card h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); margin-bottom: 14px; }
+  .contact-card p { color: var(--muted); margin-bottom: 8px; }
+  .soon {
+    display: inline-block; margin-top: 18px; background: var(--plaster);
+    padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 30px 0; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+  @media (max-width: 760px) {
+    .menu-btn { display: block; }
+    .nav-links {
+      display: none; position: absolute; top: 68px; left: 0; right: 0;
+      flex-direction: column; gap: 0; background: var(--paper); border-bottom: 1px solid var(--line);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { display: block; padding: 14px 20px; }
+    .hero { padding: 80px 0 90px; }
+    .btn-ghost { margin: 12px 0 0; }
+    .why-grid { grid-template-columns: 1fr; gap: 34px; }
+    section { padding: 64px 0; }
+    .area-box { padding: 40px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo">JS <span>Plastering</span></a>
+    <button class="menu-btn" aria-label="Open menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">Why us</a></li>
+      <li><a href="#area">Area</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <span class="tag">Hull &amp; East Yorkshire</span>
+      <h1>Smooth walls. Solid render. Done right.</h1>
+      <p>JS Plastering &amp; Rendering is a local plasterer covering Hull and the surrounding area, from a single room skim to full house renders.</p>
+      <a href="#services" class="btn">Our services</a>
+      <a href="#contact" class="btn btn-ghost">Get a quote</a>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What we do</h2>
+        <p>Quality finishes for homes and businesses, inside and out.</p>
+      </div>
+      <div class="services">
+        <div class="card">
+          <div class="icon">🧱</div>
+          <h3>Plastering</h3>
+          <p>Full replastering of walls and ceilings, patch repairs and making good after building work.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🏠</div>
+          <h3>Rendering</h3>
+          <p>External rendering to protect and transform the look of your home, including sand and cement and modern finishes.</p>
+        </div>
+        <div class="card">
+          <div class="icon">✨</div>
+          <h3>Skimming</h3>
+          <p>A fresh, smooth skim coat over existing walls and ceilings, ready for decorating.</p>
+        </div>
+        <div class="card">
+          <div class="icon">📐</div>
+          <h3>Dry Lining</h3>
+          <p>Plasterboard fitted and finished for new walls, ceilings, partitions and renovations.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🏛️</div>
+          <h3>Coving</h3>
+          <p>Neat coving fitted to finish the join between wall and ceiling, plain or decorative.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why" class="why">
+    <div class="wrap why-grid">
+      <div>
+        <h2>Why choose JS Plastering?</h2>
+        <p>We take pride in every job, big or small. You get a clean, tidy tradesman who turns up when he says he will and leaves you with a finish you'll be happy with.</p>
+        <p>Every job starts with a free, no-obligation quote.</p>
+      </div>
+      <ul class="checks">
+        <li>Free, honest quotes</li>
+        <li>Clean and tidy work</li>
+        <li>Reliable and on time</li>
+        <li>Local to Hull</li>
+        <li>Domestic and commercial jobs</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="area">
+    <div class="wrap">
+      <div class="area-box">
+        <h2>Covering Hull and nearby</h2>
+        <p>Based in Hull, we work across the city and the surrounding East Yorkshire area.</p>
+        <div class="places">
+          <span>Hull</span><span>Hessle</span><span>Cottingham</span><span>Beverley</span>
+          <span>Anlaby</span><span>Willerby</span><span>Hedon</span><span>Sutton-on-Hull</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="contact-card">
+        <h2>Get a free quote</h2>
+        <p>Need plastering, rendering, skimming, dry lining or coving in Hull?</p>
+        <p>Contact details are being added shortly.</p>
+        <span class="soon">Phone &amp; email coming soon</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> JS Plastering &amp; Rendering · Hull</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.querySelectorAll('.nav-links a').forEach(function (a) {
+    a.addEventListener('click', function () { document.querySelector('.nav-links').classList.remove('open'); });
+  });
+</script>
+</body>
+</html>
